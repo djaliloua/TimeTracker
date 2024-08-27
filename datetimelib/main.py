@@ -1,6 +1,6 @@
 from datetime import datetime
-from TimeTrackerProject.datetimelib.models import RemainingTime
-from TimeTrackerProject.datetimelib.timehelper import calculate_exit_time
+from datetimelib.models import RemainingTime
+from datetimelib.timehelper import calculate_exit_time
 
 dt = [
     datetime(2024, 8, 9, 8, 30, 0),

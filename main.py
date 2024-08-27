@@ -1,5 +1,5 @@
 import flet as ft
-from TimeTrackerProject.zucchetticontrols.zucchettipage import ZucchettiPage
+from zucchetticontrols.zucchettipage import ZucchettiPage
 
 
 def main(page: ft.Page):

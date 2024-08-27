@@ -1,6 +1,6 @@
 import flet as ft
 
-from TimeTrackerProject.zucchetticontrols.models import TimeModel
+from zucchetticontrols.models import TimeModel
 
 
 class RowControl(ft.UserControl):

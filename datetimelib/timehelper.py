@@ -1,5 +1,5 @@
 import datetime
-from TimeTrackerProject.datetimelib.models import RemainingTime
+from datetimelib.models import RemainingTime
 
 
 def calculate_exit_time(time_sheets: list[datetime.datetime]) -> RemainingTime:

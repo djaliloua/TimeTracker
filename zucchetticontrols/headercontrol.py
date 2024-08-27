@@ -1,6 +1,6 @@
 import flet as ft
-from TimeTrackerProject.zucchetticontrols.timecontrol import TimeControl
-from TimeTrackerProject.zucchetticontrols.actioncontrol import ActionControl
+from zucchetticontrols.timecontrol import TimeControl
+from zucchetticontrols.actioncontrol import ActionControl
 
 
 class HeaderControl(ft.UserControl):

@@ -1,9 +1,9 @@
 import datetime
-from TimeTrackerProject.datetimelib.timehelper import calculate_exit_time
+from datetimelib.timehelper import calculate_exit_time
 import flet as ft
-from TimeTrackerProject.zucchetticontrols.headercontrol import HeaderControl
-from TimeTrackerProject.zucchetticontrols.bodycontrol import BodyControl, RowControl
-from TimeTrackerProject.zucchetticontrols.models import TimeModel
+from zucchetticontrols.headercontrol import HeaderControl
+from zucchetticontrols.bodycontrol import BodyControl, RowControl
+from zucchetticontrols.models import TimeModel
 
 
 class BodyData(ft.UserControl):
