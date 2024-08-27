@@ -1,3 +1,8 @@
 ## TIME SHEET TRACKER
 
-flet pack main.py --icon icon.ico --name TimeTracker --product-name TimeTracker --product-version 2.0.0.0
+### windows
+**flet pack TimeTrackerProject\main.py --icon assets\icon.ico --name TimeTracker --product-name TimeTracker --product-version 4.1.0.0**
+
+### Android
+
+**flet build apk --no-android-splash**

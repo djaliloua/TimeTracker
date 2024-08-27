@@ -21,14 +21,14 @@ class BodyControl(ft.UserControl):
         self.rows = rows
         self.remaining_lunch_time = ft.Text(f"Lunch remaining time: {self._get_remaining_lunch_time()}")
         self.expected_exit_time = ft.Text(f"Expected exit time: {self._exit_time()}",
-                                          size=30)
+                                          size=20)
 
     def build(self):
         return ft.Card(
             content=ft.Container(
                 content=ft.Column(
                     [
-                        ft.Row([ft.Text("Visualizzazione timbratura")],
+                        ft.Row([ft.Text("View badgeting")],
                                alignment=ft.MainAxisAlignment.CENTER),
                         ft.Row([self.remaining_lunch_time],
                                alignment=ft.MainAxisAlignment.CENTER),
@@ -36,7 +36,7 @@ class BodyControl(ft.UserControl):
                                alignment=ft.MainAxisAlignment.CENTER),
                         self.rows
                     ]
-                ), margin=10, padding=10
+                ), margin=10, padding=10, alignment=ft.alignment.center
             ),
             elevation=10,
             margin=20,

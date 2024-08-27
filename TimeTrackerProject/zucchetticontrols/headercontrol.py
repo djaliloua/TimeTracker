@@ -15,7 +15,7 @@ class HeaderControl(ft.UserControl):
             content=ft.Container(
                 content=ft.Column([
                     ft.Row([self.timectr], alignment=ft.MainAxisAlignment.CENTER),
-                    ft.Row([self.actionctr], alignment=ft.MainAxisAlignment.CENTER),
+                    self.actionctr,
                 ]), margin=10
             ),
             elevation=10,

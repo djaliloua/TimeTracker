@@ -20,7 +20,7 @@ class TimeControl(ft.UserControl):
         while True:
             datetime_label = datetime.datetime.now()
             self.datelbl.value = datetime_label.strftime("%A, %d %B %Y")
-            self.timelbl.value = datetime_label.strftime("%I:%M:%S")
+            self.timelbl.value = datetime_label.strftime("%H:%M:%S")
             self.update()
             time.sleep(1)
 
