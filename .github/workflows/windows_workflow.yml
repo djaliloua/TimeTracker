@@ -25,7 +25,8 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        if(test-path -Path requirements.txt -PathType Leaf){pip install -r requirements.txt}
+        
     - name: Windows Application exe
       run: |
         flet pack main.py --icon assets\icon.ico --name TimeTracker --product-name TimeTracker --product-version 4.4.1.0
