@@ -19,7 +19,8 @@ class BodyControl(ft.UserControl):
         super().__init__()
         rows.callback = self._on_add
         self.rows = rows
-        self.remaining_lunch_time = ft.Text(f"Lunch remaining time: {self._get_remaining_lunch_time()}")
+        self.remaining_lunch_time = ft.Text(f"Lunch remaining time: {self._get_remaining_lunch_time()} mins")
+        self.time_spent_for_lunch = ft.Text(f"Time spent for lunch: {self._get_time_spent_for_lunch()} mins")
         self.expected_exit_time = ft.Text(f"Expected exit time: {self._exit_time()}",
                                           size=20)
 
@@ -32,6 +33,8 @@ class BodyControl(ft.UserControl):
                                alignment=ft.MainAxisAlignment.CENTER),
                         ft.Row([self.remaining_lunch_time],
                                alignment=ft.MainAxisAlignment.CENTER),
+                        ft.Row([self.time_spent_for_lunch],
+                               alignment=ft.MainAxisAlignment.CENTER),
                         ft.Row([self.expected_exit_time],
                                alignment=ft.MainAxisAlignment.CENTER),
                         self.rows
@@ -40,11 +43,12 @@ class BodyControl(ft.UserControl):
             ),
             elevation=10,
             margin=20,
-            height=300
+            height=350
         )
 
     def _on_add(self):
         self.remaining_lunch_time.value = f"Lunch remaining time: {self._get_remaining_lunch_time()}"
+        self.time_spent_for_lunch = f"Time spent for lunch: {self._get_time_spent_for_lunch()} mins"
         self.expected_exit_time.value = f"Expected exit time: {self._exit_time()}"
         self.update()
 
@@ -62,3 +66,14 @@ class BodyControl(ft.UserControl):
         if self.rows.compute_exit_time() is None:
             return
         return self.rows.compute_exit_time().get_exit_time()
+
+    def _get_time_spent_for_lunch(self):
+        if self.rows.compute_exit_time() is None:
+            return
+        return self.rows\
+            .compute_exit_time()\
+            .get_lunch_remaining_min()\
+            .time_for_lunch if self.rows\
+            .compute_exit_time()\
+            .get_lunch_remaining_min() is not None else None
+

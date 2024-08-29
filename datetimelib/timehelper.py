@@ -10,7 +10,8 @@ def calculate_exit_time(time_sheets: list[datetime.datetime]) -> RemainingTime:
         lunch_start = time_sheets[1]
         lunch_end = time_sheets[2]
         lunch_remaining = datetime.timedelta(minutes=60) - ( lunch_end - lunch_start)
-        remaining_time = RemainingTime(end - lunch_remaining, lunch_remaining)
+        time_spent_for_lunch = lunch_end - lunch_start
+        remaining_time = RemainingTime(end - lunch_remaining, lunch_remaining, time_spent_for_lunch)
     return remaining_time
 
 
