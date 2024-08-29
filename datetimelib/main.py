@@ -12,4 +12,7 @@ if __name__ == "__main__":
     result: RemainingTime = calculate_exit_time(dt)
     print(result.get_exit_time())
     lunch_rest = result.get_lunch_remaining_min()
-    print(lunch_rest.remaining_lunch_min, lunch_rest.state, lunch_rest.time_for_lunch)
+    print("Remaining lunch time: ", lunch_rest.remaining_lunch_min, "min")
+    print("Time spent for lunch: ", lunch_rest.time_for_lunch, "min")
+    print("State: ", lunch_rest.state)
+
