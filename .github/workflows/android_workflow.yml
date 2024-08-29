@@ -36,11 +36,6 @@ jobs:
         if(test-path -Path requirements.txt -PathType Leaf){pip install -r requirements.txt}
     
 
-   
-
-    - name: Install dependencies
-      run: flutter pub get
-
     - name: Windows Application exe
       run: |
         flet build apk --no-android-splash
