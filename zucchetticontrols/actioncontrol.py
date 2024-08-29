@@ -1,21 +1,20 @@
 import flet as ft
 
 
-class ActionControl(ft.UserControl):
-    def __init__(self, usercontrol: ft.UserControl):
+class ActionControl(ft.Row):
+    def __init__(self, usercontrol: ft.Column):
         super().__init__()
         self.usercontrol = usercontrol
         self.entrance_btn = ft.FilledButton("I", on_click=self._on_entrance, expand=1) #
         self.exit_btn = ft.FilledButton("O", on_click=self._on_extit, expand=1)  #
         self.name_control = ft.TextField(hint_text="your name", on_change=self._on_change, expand=2)
-
-    def build(self):
-        return ft.Row([
+        self.controls = [
             self.entrance_btn,
             self.name_control,
             self.exit_btn
-        ],
-        alignment=ft.MainAxisAlignment.CENTER)
+        ]
+        self.alignment = ft.MainAxisAlignment.CENTER
+
 
     def did_mount(self):
         self._initialize()

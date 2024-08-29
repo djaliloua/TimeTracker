@@ -1,24 +1,24 @@
 import flet as ft
+
+from zucchetticontrols.bodycontrol import BodyData
 from zucchetticontrols.timecontrol import TimeControl
 from zucchetticontrols.actioncontrol import ActionControl
 
 
-class HeaderControl(ft.UserControl):
-    def __init__(self, page: ft.Page, usercontrol: ft.UserControl):
+class HeaderControl(ft.Card):
+    def __init__(self, page: ft.Page, usercontrol: BodyData):
         super().__init__()
         self.page = page
-        self.timectr = TimeControl(page)
-        self.actionctr = ActionControl(usercontrol)
-
-    def build(self):
-        return ft.Card(
-            content=ft.Container(
+        self.time_ctr = TimeControl(page)
+        self.action_ctr = ActionControl(usercontrol)
+        self.content = ft.Container(
                 content=ft.Column([
-                    ft.Row([self.timectr], alignment=ft.MainAxisAlignment.CENTER),
-                    self.actionctr,
+                    ft.Row([self.time_ctr], alignment=ft.MainAxisAlignment.CENTER),
+                    self.action_ctr,
                 ]), margin=10
-            ),
-            elevation=10,
-            margin=20,
-            height=300
-        )
+            )
+        self.elevation = 10
+        self.height = 300
+        self.margin = 20
+
+
