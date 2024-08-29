@@ -19,8 +19,8 @@ class BodyControl(ft.UserControl):
         super().__init__()
         rows.callback = self._on_add
         self.rows = rows
-        self.remaining_lunch_time = ft.Text(f"Lunch remaining time: {self._get_remaining_lunch_time()} mins")
-        self.time_spent_for_lunch = ft.Text(f"Time spent for lunch: {self._get_time_spent_for_lunch()} mins")
+        self.remaining_lunch_time = ft.Text(f"Lunch remaining time: {self._get_remaining_lunch_time()} min")
+        self.time_spent_for_lunch = ft.Text(f"Time spent for lunch: {self._get_time_spent_for_lunch()} min")
         self.expected_exit_time = ft.Text(f"Expected exit time: {self._exit_time()}",
                                           size=20)
 
@@ -48,7 +48,7 @@ class BodyControl(ft.UserControl):
 
     def _on_add(self):
         self.remaining_lunch_time.value = f"Lunch remaining time: {self._get_remaining_lunch_time()}"
-        self.time_spent_for_lunch = f"Time spent for lunch: {self._get_time_spent_for_lunch()} mins"
+        self.time_spent_for_lunch.value = f"Time spent for lunch: {self._get_time_spent_for_lunch()} min"
         self.expected_exit_time.value = f"Expected exit time: {self._exit_time()}"
         self.update()
 
