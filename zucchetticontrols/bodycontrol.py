@@ -2,7 +2,7 @@ import flet as ft
 import datetime
 
 from datetimelib.models import RemainingTime
-from datetimelib.timehelper import calculate_exit_time
+from datetimelib.timehelper import calculate_exit_time, calculate_expected_lunch_time
 from zucchetticontrols.models import TimeModel
 
 
@@ -46,8 +46,8 @@ class BodyData(ft.Column):
         self.store_data.append(str(tm))
         self.page.client_storage.set("timesheet", self.store_data)
         self.controls.append(RowControl(TimeModel(state, tm)))
-        if self.callback and self.get_count() == 3:
-            self.callback()
+        if self.callback and self.get_count() >= 2:
+            self.callback(self.get_count())
 
     def get_count(self) -> int:
         return len(self.controls)
@@ -74,6 +74,11 @@ class BodyData(ft.Column):
             return calculate_exit_time([x.row_data.hour for x in self.controls][:3])
         return
 
+    def compute_expected_end_lunch_time(self) -> datetime:
+        if self.get_count() >= 2:
+            return calculate_expected_lunch_time([x.row_data.hour for x in self.controls][:2])
+        return
+
 class BodyControl(ft.Card):
     def __init__(self, rows: BodyData):
         super().__init__()
@@ -81,16 +86,17 @@ class BodyControl(ft.Card):
         self.rows = rows
         self.remaining_lunch_time = ft.Text(f"Lunch remaining time: {self._get_remaining_lunch_time()} min")
         self.time_spent_for_lunch = ft.Text(f"Time spent for lunch: {self._get_time_spent_for_lunch()} min")
+        self.expected_end_lunch = ft.Text(f"Expected end lunch: {self._get_expected_end_lunch_time()}")
         self.expected_exit_time = ft.Text(f"Expected exit time: {self._exit_time()}",
                                           size=20)
         self.content = ft.Container(
                 content=ft.Column(
                     [
-                        ft.Row([ft.Text("View badgeting")],
-                               alignment=ft.MainAxisAlignment.CENTER),
                         ft.Row([self.remaining_lunch_time],
                                alignment=ft.MainAxisAlignment.CENTER),
                         ft.Row([self.time_spent_for_lunch],
+                               alignment=ft.MainAxisAlignment.CENTER),
+                        ft.Row([self.expected_end_lunch],
                                alignment=ft.MainAxisAlignment.CENTER),
                         ft.Row([self.expected_exit_time],
                                alignment=ft.MainAxisAlignment.CENTER),
@@ -102,11 +108,21 @@ class BodyControl(ft.Card):
         self.margin = 20
         self.height = 350
 
-    def _on_add(self):
+    def _on_add(self, n):
+        if n == 2:
+            self.expected_end_lunch.value = f"Exp. end lunch: {self._get_expected_end_lunch_time()}"
+            self.update()
+            return
         self.remaining_lunch_time.value = f"Lunch remaining time: {self._get_remaining_lunch_time()}"
         self.time_spent_for_lunch.value = f"Time spent for lunch: {self._get_time_spent_for_lunch()} min"
         self.expected_exit_time.value = f"Expected exit time: {self._exit_time()}"
         self.update()
+
+
+    def _get_expected_end_lunch_time(self):
+        if self.rows.compute_expected_end_lunch_time() is None:
+            return
+        return self.rows.compute_expected_end_lunch_time().strftime("%H:%M")
 
     def _get_remaining_lunch_time(self):
         if self.rows.compute_exit_time() is None:
