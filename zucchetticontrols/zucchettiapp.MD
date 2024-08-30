@@ -5,4 +5,6 @@
 
 ### Android
 
+To test application on android run:  **flet run --android**
+
 **flet build apk --no-android-splash**
