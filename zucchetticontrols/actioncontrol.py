@@ -1,8 +1,10 @@
 import flet as ft
 
+from zucchetticontrols.bodycontrol import BodyData
+
 
 class ActionControl(ft.Row):
-    def __init__(self, usercontrol: ft.Column):
+    def __init__(self, usercontrol: BodyData):
         super().__init__()
         self.usercontrol = usercontrol
         self.entrance_btn = ft.FilledButton("I", on_click=self._on_entrance, expand=1) #

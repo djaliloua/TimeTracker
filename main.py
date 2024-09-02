@@ -1,8 +1,6 @@
 import flet as ft
 from home import Home
 from servicelocator import ZucchettiPageLocator
-from zucchetticontrols.zucchettipage import ZucchettiPage
-from utility import set_value_per_platform
 
 
 def main(page: ft.Page):
