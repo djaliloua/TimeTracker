@@ -1,5 +1,4 @@
 import flet as ft
-
 from home import Home
 from servicelocator import ZucchettiPageLocator
 from zucchetticontrols.zucchettipage import ZucchettiPage

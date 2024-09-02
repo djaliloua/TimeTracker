@@ -1,6 +1,9 @@
 from zucchetticontrols.zucchettipage import ZucchettiPage
 import flet as ft
 
+
+
+
 class BaseLocator:
     def get_singleton_control(self):
         pass

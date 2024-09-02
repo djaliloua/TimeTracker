@@ -1,6 +1,9 @@
 import flet as ft
 from flet_core.control import Control
+
+from aboutcontrols.about import About
 from servicelocator import ZucchettiPageLocator
+from zucchetticontrols.zucchettipage import ZucchettiPage
 
 
 class Home(ft.Pagelet):
@@ -12,33 +15,35 @@ class Home(ft.Pagelet):
         self.appbar = ft.AppBar(
             title=ft.Text("App"),
             bgcolor=ft.colors.LIGHT_BLUE,
-            elevation=30,
-            shadow_color="red"
+            elevation=10,
+            shadow_color="green"
         )
-
         self.content = content
         self.drawer=ft.NavigationDrawer(
             on_change=self._on_change,
             controls=[
                 ft.Container(height=12),
                 ft.NavigationDrawerDestination(
-                    icon=ft.icons.TIME_TO_LEAVE, label="TimeTracker"
+                    icon=ft.icons.TIMELAPSE, label="TimeTracker"
                 ),
                 ft.NavigationDrawerDestination(
-                    icon=ft.icons.ADD_COMMENT, label="Item 2"
+                    icon=ft.icons.INFO, label="About"
                 ),
             ],
         )
         self.height = self.page.window.height
-        self.txt = ft.Text(f"Selected Index changed: 1")
+        self.about = About()
 
     def _on_change(self, e):
         if e.data == "0":
             self.content = self.zucchetti_locator.get_singleton_control()
         if e.data == "1":
-            self.content = self.txt
+            self.content = self.about
         self.update()
         self.close_drawer()
+
+    def did_mount(self):
+        pass
 
 
 
