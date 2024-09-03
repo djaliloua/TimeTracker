@@ -106,7 +106,7 @@ class BodyControl(ft.Card):
             )
         self.elevation = 10
         self.margin = 20
-        self.height = 350
+        self.height = 340
 
     def _on_add(self, n):
         if n == 2:

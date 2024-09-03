@@ -12,7 +12,7 @@ class ZucchettiPage(ft.Container):
             HeaderControl(self.page, self.rows),
             BodyControl(self.rows)
         ])
-        self.margin = ft.margin.only(top=20)
+        self.margin = ft.margin.only(top=5)
 
 
 

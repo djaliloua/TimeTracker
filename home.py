@@ -1,9 +1,7 @@
 import flet as ft
 from flet_core.control import Control
-
 from aboutcontrols.about import About
 from servicelocator import ZucchettiPageLocator
-from zucchetticontrols.zucchettipage import ZucchettiPage
 
 
 class Home(ft.Pagelet):
@@ -11,11 +9,10 @@ class Home(ft.Pagelet):
         super().__init__(content)
         self.zucchetti_locator = ZucchettiPageLocator(page)
         self.page = page
-
         self.appbar = ft.AppBar(
             title=ft.Text("App"),
             bgcolor=ft.colors.LIGHT_BLUE,
-            elevation=10,
+            elevation=20,
             shadow_color="green"
         )
         self.content = content
@@ -31,7 +28,7 @@ class Home(ft.Pagelet):
                 ),
             ],
         )
-        self.height = self.page.window.height
+        self.height = self.page.height
         self.about = About()
 
     def _on_change(self, e):
@@ -39,8 +36,9 @@ class Home(ft.Pagelet):
             self.content = self.zucchetti_locator.get_singleton_control()
         if e.data == "1":
             self.content = self.about
+        self.drawer.open = False
+        self.drawer.update()
         self.update()
-        self.close_drawer()
 
     def did_mount(self):
         pass
