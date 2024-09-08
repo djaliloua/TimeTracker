@@ -1,6 +1,6 @@
 import flet as ft
 import datetime
-
+import json
 from datetimelib.models import RemainingTime
 from datetimelib.timehelper import calculate_exit_time, calculate_expected_lunch_time
 from zucchetticontrols.models import TimeModel
@@ -59,6 +59,7 @@ class BodyData(ft.Column):
             return False
         if len(tmp) != 0:
             t1 = datetime.datetime.strptime(tmp[0], self.f).strftime("%d")
+            t1 = "23"
             if t1 != t:
                 return True
         return False

@@ -11,7 +11,14 @@ This app needs three inputs in order to compute the exit time:
  - [datetimelib](datetimelib/datetime.md)
  - python12.5
 
+[Connect Android](connect_android.md)
 
+[Kivmd page](https://kivymd.readthedocs.io/en/latest/getting-started/)
+[Kivymd repository](https://github.com/kivymd)
+
+[python for  android](https://python-for-android.readthedocs.io/en/latest/)
+
+[Kivy github repo and its related dependencies](https://github.com/kivy)
 
 
 [Deployment process](zucchetticontrols/zucchettiapp.MD)

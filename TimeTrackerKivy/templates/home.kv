@@ -1,0 +1,68 @@
+#:include templates/zucchetti.kv
+
+#:import Home home
+#:import AppBar home
+#:import Zucchetti zucchetti
+
+
+
+<AppBar>:
+    id: app_bar
+    type: "small"
+    pos_hint: {"center_x": .5, "center_y": .5}
+    md_bg_color: 1, 0, 0, .5
+    MDTopAppBarLeadingButtonContainer:
+        MDActionTopAppBarButton:
+            id: menu_btn
+            icon: "menu"
+<DrawerItem>:
+    active_indicator_color: "#e7e4c0"
+    MDNavigationDrawerItemLeadingIcon:
+        icon: root.icon
+        theme_icon_color: "Custom"
+        icon_color: "#4a4939"
+    MDNavigationDrawerItemText:
+        text: root.text
+    MDNavigationDrawerItemTrailingText:
+        text: root.trailing_text
+
+
+
+Home:
+    md_bg_color: self.theme_cls.backgroundColor
+    MDNavigationLayout:
+        MDScreenManager:
+            MDScreen:
+                MDBoxLayout:
+                    orientation: "vertical"
+                    spacing: 10
+                    AppBar:
+                        id: appbar
+                        size_hint: 1, None
+                    MDBoxLayout:
+                        orientation: "vertical"
+                        spacing: 10
+                        TimeCard:
+                            size_hint: 1, 0.25
+                        ActionButtons:
+                            size_hint: 1, 0.2
+                            body_object: body
+                        Body:
+                            text: "hello"
+                            id: body
+                            halign: "center"
+                            size_hint: 1, 0.55
+                    #Widget:
+        MDNavigationDrawer:
+            id: nav_drawer
+            drawer_type: "modal"
+            #anchor: "right"
+            radius: 0, dp(16), dp(16), 0
+            MDNavigationDrawerMenu:
+                MDNavigationDrawerLabel:
+                    text: "App"
+                DrawerItem:
+                    text: "TimeTracker"
+                    icon: "av-timer"
+                    trailing_text: "24"
+                MDNavigationDrawerDivider:

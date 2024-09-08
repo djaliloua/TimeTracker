@@ -12,14 +12,14 @@ class Home(ft.Pagelet):
         self.appbar = ft.AppBar(
             title=ft.Text("App"),
             bgcolor=ft.colors.LIGHT_BLUE,
-            elevation=20,
             shadow_color="green"
+
         )
+        print(self.appbar.toolbar_height)
         self.content = content
         self.drawer=ft.NavigationDrawer(
             on_change=self._on_change,
             controls=[
-                ft.Container(height=12),
                 ft.NavigationDrawerDestination(
                     icon=ft.icons.TIMELAPSE, label="TimeTracker"
                 ),

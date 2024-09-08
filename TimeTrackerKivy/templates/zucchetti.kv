@@ -1,0 +1,104 @@
+
+#:import Zucchetti zucchetti
+
+<TimeCard>
+    padding: "4dp"
+    size_hint: 1, "100dp"
+    MDBoxLayout:
+        orientation: "vertical"
+        margin: 10
+        #md_bg_color: 1, 0, 0, .5
+        MDLabel:
+            text: root.time_value
+            id: tm
+            #md_bg_color: "yellow"
+            halign: "center"
+            font_style: "digital_font"
+        MDLabel:
+            text: root.date_value
+            id: date
+            #md_bg_color: 1, 0, 0, .5
+            halign: "center"
+            #font_style: "custom_font"
+
+
+<BodyHeader>:
+    MDLabel:
+        text: root.left_label
+        #md_bg_color: "orange"
+        halign: "center"
+    MDLabel:
+        id: right_label
+        text: root.right_label
+        #md_bg_color: "yellow"
+        halign: "center"
+
+<BodyLabel>:
+    orientation: "vertical"
+
+
+
+<Body>
+    padding: "4dp"
+    size_hint: 1, "100dp"
+    MDBoxLayout:
+        orientation: "vertical"
+        #md_bg_color: "yellow"
+        MDBoxLayout:
+            orientation: "vertical"
+            padding: 10
+            BodyHeader:
+                id: lunch_rem_time
+                left_label: "Lunch rem. Time"
+                right_label: "None"
+            BodyHeader:
+                id: act_time_lunch
+                left_label: "Time spent for lunch"
+                right_label: "None"
+            BodyHeader
+                id: expected_end_lunch
+                left_label: "Expected end lunch"
+                right_label: "None"
+            BodyHeader:
+                id: exp_exit_time
+                left_label: "Expected exit time"
+                right_label: "None"
+
+        BodyLabel:
+            id: body_label
+
+
+
+<ActionButtons>
+    padding: "4dp"
+    size_hint: 1, "100dp"
+    MDAnchorLayout:
+        anchor_y: "top"
+        MDBoxLayout:
+            #valign: "center"
+            #size_hint_y: .1
+            #md_bg_color: "red"
+            spacing: 10
+            MDButton:
+                style: "elevated"
+                size_hint_x: .5
+                pos_hint: {"top": .7}
+                on_press: root.on_entrance(self)
+
+                MDButtonText:
+                    text: "Entrance"
+                    id: entrance_btn
+            MDTextField:
+                text: root.text
+                pos_hint: {"top": .8}
+
+            MDButton:
+                style: "elevated"
+                size_hint_x: .5
+                pos_hint: {"top": .7}
+                halign: "center"
+                on_press: root.on_exit(self)
+                MDButtonText:
+                    id: exit_btn
+                    text: "Exit"
+

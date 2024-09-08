@@ -1,5 +1,5 @@
+import time
 import flet as ft
-
 from zucchetticontrols.bodycontrol import BodyData
 
 
@@ -16,6 +16,8 @@ class ActionControl(ft.Row):
             self.exit_btn
         ]
         self.alignment = ft.MainAxisAlignment.CENTER
+        self.hf = ft.HapticFeedback()
+        self.usercontrol.page.overlay.append(self.hf)
 
 
     def did_mount(self):
@@ -37,6 +39,7 @@ class ActionControl(ft.Row):
         self.usercontrol.add_control("entrance")
         self.entrance_btn.disabled = True
         self.exit_btn.disabled = False
+        self._vibrate()
         self._disable_btns()
         self.usercontrol.update()
 
@@ -46,6 +49,15 @@ class ActionControl(ft.Row):
         self.exit_btn.disabled = True
         self._disable_btns()
         self.usercontrol.update()
+
+    def _vibrate(self):
+        pass
+        # n = 10
+        # i = 0
+        # while i < n:
+        #     self.hf.heavy_impact()
+        #     time.sleep(1)
+        #     i += 1
 
     def _disable_btns(self):
         if self.usercontrol.get_entrance_count() == 2:

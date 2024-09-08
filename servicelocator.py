@@ -13,7 +13,7 @@ class ZucchettiPageLocator(BaseLocator):
         self.page = page
         self._zucchetti:ZucchettiPage = None
 
-    def get_singleton_control(self):
+    def get_singleton_control(self) -> ZucchettiPage:
         if self._zucchetti:
             return self._zucchetti
         self._zucchetti = ZucchettiPage(self.page)
