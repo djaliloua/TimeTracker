@@ -49,7 +49,7 @@ class ActionButtons(MDCard):
     body_object = ObjectProperty()
 
     def on_kv_post(self, base_widget):
-        #self._disable_btn(0)
+        self._disable_btn(0)
         if self.body_object:
             self.body_object.load_time_sheet_data()
             self._disable_btn(self.body_object.get_number_children())
@@ -93,6 +93,7 @@ class ActionButtons(MDCard):
 
 class Body(MDCard):
     text = StringProperty()
+    body_header_control = ObjectProperty()
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.storage = Store("timesheet", "dates", [],store)
@@ -100,6 +101,7 @@ class Body(MDCard):
         self.f = "%Y-%m-%d %H:%M"
         self._default_time = 60*60
         self._clock_event = None
+        self.body_header_control = None
 
     def add_new_entry(self, data: Data) -> int:
         self.ids.body_label.add_widget(BodyHeader(data))
@@ -113,12 +115,13 @@ class Body(MDCard):
         return self.get_number_children()
 
     def set_time_header_label(self):
-        self.ids.expected_end_lunch.set_value(self._set_exp_end_lunch())
-        if result := self.time_object.compute_remaining_time():
-            self.ids.exp_exit_time.set_value(f"{result.get_exit_time()}")
-            if remaining := result.get_lunch_remaining_min():
-                self.ids.lunch_rem_time.set_value(f"{remaining.remaining_lunch_min} min")
-                self.ids.act_time_lunch.set_value(f"{remaining.time_for_lunch} min")
+        if self.body_header_control:
+            self.body_header_control.ids.expected_end_lunch.set_value(self._set_exp_end_lunch())
+            if result := self.time_object.compute_remaining_time():
+                self.body_header_control.ids.exp_exit_time.set_value(f"{result.get_exit_time()}")
+                if remaining := result.get_lunch_remaining_min():
+                    self.body_header_control.ids.lunch_rem_time.set_value(f"{remaining.remaining_lunch_min} min")
+                    self.body_header_control.ids.act_time_lunch.set_value(f"{remaining.time_for_lunch} min")
 
 
     def on_kv_post(self, base_widget):
@@ -130,14 +133,15 @@ class Body(MDCard):
             vibrator.vibrate(60)
 
     def _set_timer(self, dt) -> None:
-        if t_mer :=self.ids.timer:
-            if self._default_time:
-                min_s, secs = divmod(self._default_time, 60)
-                time_format = '{:02d}:{:02d}'.format(min_s, secs)
-                t_mer.set_value(time_format)
-                self._default_time -= 1
-                if self._default_time == 10:
-                    self._set_vibration_callback()
+        if self.body_header_control:
+            if t_mer :=self.body_header_control.ids.timer:
+                if self._default_time:
+                    min_s, secs = divmod(self._default_time, 60)
+                    time_format = '{:02d}:{:02d}'.format(min_s, secs)
+                    t_mer.set_value(time_format)
+                    self._default_time -= 1
+                    if self._default_time == 10:
+                        self._set_vibration_callback()
 
     def get_number_children(self) -> int:
         count = 0

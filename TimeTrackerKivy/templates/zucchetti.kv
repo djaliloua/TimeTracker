@@ -39,6 +39,28 @@
 
 
 <BodyHeaderControl>:
+    MDBoxLayout:
+        orientation: "vertical"
+        BodyHeader:
+            id: lunch_rem_time
+            left_label: "Lunch rem. Time"
+            right_label: "None"
+        BodyHeader:
+            id: act_time_lunch
+            left_label: "Time spent for lunch"
+            right_label: "None"
+        BodyHeader
+            id: expected_end_lunch
+            left_label: "Expected end lunch"
+            right_label: "None"
+        BodyHeader:
+            id: exp_exit_time
+            left_label: "Expected exit time"
+            right_label: "None"
+        BodyHeader:
+            id: timer
+            left_label: "Timer"
+            right_label: "None"
 
 <Body>
     padding: "4dp"
@@ -47,30 +69,6 @@
     MDBoxLayout:
         orientation: "vertical"
         #md_bg_color: "yellow"
-        MDBoxLayout:
-            orientation: "vertical"
-            padding: 10
-            BodyHeader:
-                id: lunch_rem_time
-                left_label: "Lunch rem. Time"
-                right_label: "None"
-            BodyHeader:
-                id: act_time_lunch
-                left_label: "Time spent for lunch"
-                right_label: "None"
-            BodyHeader
-                id: expected_end_lunch
-                left_label: "Expected end lunch"
-                right_label: "None"
-            BodyHeader:
-                id: exp_exit_time
-                left_label: "Expected exit time"
-                right_label: "None"
-            BodyHeader:
-                id: timer
-                left_label: "Timer"
-                right_label: "None"
-
         BodyLabel:
             id: body_label
 

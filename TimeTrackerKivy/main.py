@@ -2,7 +2,6 @@ from kivy.lang import Builder
 from kivymd.app import MDApp
 from kivy.core.text import LabelBase
 from kivy.metrics import sp
-from kivymd.theming import ThemeManager
 
 
 class TimeTracker(MDApp):

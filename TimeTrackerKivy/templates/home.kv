@@ -43,16 +43,19 @@ Home:
                         orientation: "vertical"
                         spacing: 10
                         TimeCard:
-                            size_hint: 1, 0.25
+                            size_hint: 1, 0.2
                         ActionButtons:
                             size_hint: 1, 0.2
                             body_object: body
+                        BodyHeaderControl:
+                            size_hint: 1, 0.25
+                            id: body_header_control_id
                         Body:
                             text: "hello"
                             id: body
+                            body_header_control: body_header_control_id
                             halign: "center"
-
-                            size_hint: 1, 0.55
+                            size_hint: 1, 0.35
                     #Widget:
         MDNavigationDrawer:
             id: nav_drawer
