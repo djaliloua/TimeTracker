@@ -33,14 +33,17 @@
         #md_bg_color: "yellow"
         halign: "center"
 
+
 <BodyLabel>:
     orientation: "vertical"
 
 
+<BodyHeaderControl>:
 
 <Body>
     padding: "4dp"
     size_hint: 1, "100dp"
+    #md_bg_color: app.theme_cls.primary_color
     MDBoxLayout:
         orientation: "vertical"
         #md_bg_color: "yellow"
@@ -62,6 +65,10 @@
             BodyHeader:
                 id: exp_exit_time
                 left_label: "Expected exit time"
+                right_label: "None"
+            BodyHeader:
+                id: timer
+                left_label: "Timer"
                 right_label: "None"
 
         BodyLabel:

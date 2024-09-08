@@ -25,10 +25,11 @@ class TimeWrapper:
 
 
 class Store:
-    def __init__(self, key1: str, key2: str, _store: JsonStore):
+    def __init__(self, key1: str, key2: str, default, _store: JsonStore):
         self._store = _store
         self._key1 = key1
         self._key2 = key2
+        self._default = default
 
 
     @property
@@ -37,7 +38,7 @@ class Store:
             return ast.literal_eval(self._store.get(self._key1)[self._key2])
         except:
             pass
-        return []
+        return self._default
 
     def reset_data(self, value):
         self._store.put(self._key1, dates=f"{value}")

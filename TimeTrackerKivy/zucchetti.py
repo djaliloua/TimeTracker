@@ -1,10 +1,16 @@
+from datetime import datetime
 from kivy.clock import Clock
+from kivy.input.providers import platform
 from kivy.properties import StringProperty, ObjectProperty
 from kivy.storage.jsonstore import JsonStore
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.card import MDCard
-from datetime import datetime
 from models import Data, TimeWrapper, Store, TimeComputation
+
+
+
+if platform == "android":
+    from plyer.platforms.android.vibrator import vibrator
 
 store = JsonStore('time_app.json')
 store.put("name", name="djalilou")
@@ -89,14 +95,21 @@ class Body(MDCard):
     text = StringProperty()
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.storage = Store("timesheet", "dates", store)
+        self.storage = Store("timesheet", "dates", [],store)
         self.time_object = TimeComputation(self.storage)
         self.f = "%Y-%m-%d %H:%M"
+        self._default_time = 60*60
+        self._clock_event = None
 
     def add_new_entry(self, data: Data) -> int:
         self.ids.body_label.add_widget(BodyHeader(data))
         self.storage.save_data(data.time.get_full_date)
         self.set_time_header_label()
+        if self.get_number_children() == 2:
+            self._clock_event = Clock.schedule_interval(self._set_timer, 1)
+        if self.get_number_children() == 3 and self._clock_event:
+            self._clock_event.cancel()
+
         return self.get_number_children()
 
     def set_time_header_label(self):
@@ -110,6 +123,21 @@ class Body(MDCard):
 
     def on_kv_post(self, base_widget):
         pass
+        # Clock.schedule_interval(self._set_timer, 1)
+
+    def _set_vibration_callback(self):
+        if platform == "android":
+            vibrator.vibrate(60)
+
+    def _set_timer(self, dt) -> None:
+        if t_mer :=self.ids.timer:
+            if self._default_time:
+                min_s, secs = divmod(self._default_time, 60)
+                time_format = '{:02d}:{:02d}'.format(min_s, secs)
+                t_mer.set_value(time_format)
+                self._default_time -= 1
+                if self._default_time == 10:
+                    self._set_vibration_callback()
 
     def get_number_children(self) -> int:
         count = 0
@@ -124,7 +152,6 @@ class Body(MDCard):
     def load_time_sheet_data(self):
         if self._is_same_date():
             self.storage.reset_data([])
-
         self.set_time_header_label()
 
         if self.storage.get_stored_data:
@@ -141,7 +168,11 @@ class Body(MDCard):
             return False
         if len(tmp) != 0:
             t1 = datetime.strptime(tmp[0], self.f).strftime("%d")
-            #t1 = "23"
+            t1 = "23"
             if t1 != t:
                 return True
         return False
+
+
+class BodyHeaderControl(MDCard):
+    pass
