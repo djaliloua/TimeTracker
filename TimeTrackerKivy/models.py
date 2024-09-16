@@ -24,6 +24,7 @@ class TimeWrapper:
 
 
 
+
 class Store:
     def __init__(self, key1: str, key2: str, default, _store: JsonStore):
         self._store = _store
@@ -43,10 +44,15 @@ class Store:
     def reset_data(self, value):
         self._store.put(self._key1, dates=f"{value}")
 
-    def save_data(self, value: str):
+    def save_data(self, value: object):
         data = self.get_stored_data
-        data.append(value)
-        val = {self._key2: f"{data}"}
+
+        if type(data) in [int, str]:
+            val = {self._key2: f"{value}"}
+        else:
+            data.append(value)
+            val = {self._key2: f"{data}"}
+
         self._store.put(self._key1, **val)
 
     @property

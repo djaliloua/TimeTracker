@@ -1,19 +1,22 @@
 from datetime import datetime
+from kivy import platform
 from kivy.clock import Clock
-from kivy.input.providers import platform
 from kivy.properties import StringProperty, ObjectProperty
 from kivy.storage.jsonstore import JsonStore
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.card import MDCard
+
+from TimeTrackerKivy.servicelocator import PlaceHolder
 from models import Data, TimeWrapper, Store, TimeComputation
-
-
 
 if platform == "android":
     from plyer.platforms.android.vibrator import vibrator
 
 store = JsonStore('time_app.json')
 store.put("name", name="djalilou")
+
+
+
 
 
 class BodyLabel(MDBoxLayout):
@@ -29,11 +32,12 @@ class BodyHeader(MDBoxLayout):
         self.left_label = data.action
 
     def set_value(self, value: str) -> None:
-        self.ids.right_label.text = value or ""
+        self.ids.right_label.text = value or "None"
 
 class TimeCard(MDCard):
     date_value = StringProperty()
     time_value = StringProperty()
+    body_object = ObjectProperty()
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         Clock.schedule_interval(self._update, 0)
@@ -44,20 +48,12 @@ class TimeCard(MDCard):
         self.ids.date.text = datetime_label.strftime("%A, %d %B %Y")
         self.ids.tm.text = datetime_label.strftime("%H:%M:%S")
 
-class ActionButtons(MDCard):
-    text = StringProperty("hello world")
-    body_object = ObjectProperty()
-
     def on_kv_post(self, base_widget):
         self._disable_btn(0)
         if self.body_object:
             self.body_object.load_time_sheet_data()
             self._disable_btn(self.body_object.get_number_children())
 
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.text = store.get("name")["name"]
 
     def on_exit(self, instance):
         if self.body_object is not None:
@@ -69,15 +65,15 @@ class ActionButtons(MDCard):
 
 
     def on_entrance(self, instance):
+        if instance.disabled:
+            return
+
         if self.body_object is not None:
             if self.body_object.get_number_children() == 4:
                 instance.disabled = True
                 return
             count = self.body_object.add_new_entry(Data(TimeWrapper(datetime.now()),"Enter"))
             self._disable_btn(count)
-
-    def on_text(self, instance, value):
-        pass
 
     def _disable_btn(self, n: int):
         if n == 4:
@@ -91,9 +87,23 @@ class ActionButtons(MDCard):
             self.ids.entrance_btn.disabled = True
             self.ids.exit_btn.disabled = False
 
+class TimerControl(MDCard):
+    text = StringProperty("hello world")
+    body_object = ObjectProperty()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.text = store.get("name")["name"]
+
+    def set_value(self, value: str):
+        self.ids.timer_id.text = value
+
+
+
 class Body(MDCard):
     text = StringProperty()
     body_header_control = ObjectProperty()
+    timer_control = ObjectProperty()
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.storage = Store("timesheet", "dates", [],store)
@@ -111,6 +121,7 @@ class Body(MDCard):
             self._clock_event = Clock.schedule_interval(self._set_timer, 1)
         if self.get_number_children() == 3 and self._clock_event:
             self._clock_event.cancel()
+            self.timer_control.set_value("00:00")
 
         return self.get_number_children()
 
@@ -134,13 +145,15 @@ class Body(MDCard):
 
     def _set_timer(self, dt) -> None:
         if self.body_header_control:
-            if t_mer :=self.body_header_control.ids.timer:
-                if self._default_time:
-                    min_s, secs = divmod(self._default_time, 60)
+            if t_mer :=self.timer_control:
+                if counter := PlaceHolder.counter:
+                    min_s, secs = divmod(counter, 60)
                     time_format = '{:02d}:{:02d}'.format(min_s, secs)
+                    # print(time_format)
                     t_mer.set_value(time_format)
-                    self._default_time -= 1
-                    if self._default_time == 10:
+                    # counter -= 1
+                    PlaceHolder.count_down()
+                    if min_s == 58:
                         self._set_vibration_callback()
 
     def get_number_children(self) -> int:

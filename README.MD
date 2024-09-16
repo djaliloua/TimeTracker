@@ -13,6 +13,8 @@ This app needs three inputs in order to compute the exit time:
 
 [Connect Android](connect_android.md)
 
+[Open Sound Control (OSC)](https://github.com/kivy/oscpy)
+
 [Kivmd page](https://kivymd.readthedocs.io/en/latest/getting-started/)
 [Kivymd repository](https://github.com/kivymd)
 

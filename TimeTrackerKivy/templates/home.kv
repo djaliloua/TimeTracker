@@ -39,12 +39,15 @@ Home:
                     AppBar:
                         id: appbar
                         size_hint: 1, None
+                        style: "elevated"
                     MDBoxLayout:
                         orientation: "vertical"
                         spacing: 10
                         TimeCard:
+                            body_object: body
                             size_hint: 1, 0.2
-                        ActionButtons:
+                        TimerControl:
+                            id: timer_control_id
                             size_hint: 1, 0.2
                             body_object: body
                         BodyHeaderControl:
@@ -54,6 +57,7 @@ Home:
                             text: "hello"
                             id: body
                             body_header_control: body_header_control_id
+                            timer_control: timer_control_id
                             halign: "center"
                             size_hint: 1, 0.35
                     #Widget:
